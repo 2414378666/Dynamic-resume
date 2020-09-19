@@ -3,12 +3,13 @@
     <div class="fathen">
       <pre class="scroll">
         {{text}}
+        <div v-show="text3">
+          {{text3}}
+        </div>
       </pre>
     </div>
     <b-scrll class="contentt" ref="scroll">
-      <!-- <div class="box">
 
-      </div> -->
     </b-scrll>
     
 
@@ -24,8 +25,8 @@
 </template>
 
 <script>
-import {gethello,getres} from '../instrument/axios'
-import BScrll from '../scroll/BScrll'
+import {gethello,getres} from './src/instrument/axios'
+import BScrll from './src/scroll/BScrll'
 
 export default {
   name: 'HelloWorld',
@@ -58,8 +59,10 @@ export default {
       transform:rotateY(30deg);
     }
       `,
-    codefake: '',
     jianli: `
+    /* 接下来是我的自我介绍 */
+    /* 还是把一些重点加个粗把 */
+    /* 在加上一个底边框 */
     .h2 {
       line-height: 40px;
       padding-buttom: 5px;
@@ -67,13 +70,11 @@ export default {
       border-bottom: 1px solid black;
       font-size: 20px;
     }
+    /* 把底色颜色变成白色 文字颜色变成黑色 白配黑完美！*/
     .contentt {
       background-color: #fff;
       padding: 20px;
       color: black;
-    }
-    .xiang {
-      line-height: 25px;
     }
     `,
     code2: `
@@ -103,11 +104,13 @@ export default {
         <div class="xiang"><b>3、</b>使用Vue、JS、MangoDB、Github服务器、Webpack，开发的个人博客。其中Vue负责后台管理负责对MangoDB增删查改，以及对页面的渲染和各页面的跳转。Webpack打包压缩后通过Github的免费服务器发表到网上。而考虑到浏览端的不同，需要兼容各手机端，平板端，Web端所以使用了Bootstrap网格布局框架，和CSS3中的vw、vh和rem以及媒体查询自适应。</div>
       </p>
     `,
-    text2: ''
+    text2: '',
+    text3: '',
     }
   },
   mounted () {
-    let content = document.querySelector('.content')
+    let contentt = document.querySelector('.contentt')
+    let fathen = document.querySelector('.fathen')
     let n = 1
     let i = 1
     new Promise((resolve, reject) => {
@@ -119,13 +122,14 @@ export default {
         clearInterval(settime)
         resolve()
       }
-    }, 10)
+    }, 30)
     }).then(() => {
       new Promise((resolve, reject) => {
         const settime2 = setInterval(() => {
             if (i <= this.code2.length) {
-            content.innerHTML = this.code2.substr(0, i)
+            contentt.innerHTML = this.code2.substr(0, i)
             this.text2 = this.jianli.substr(0, i)
+            this.text3 = this.jianli.substr(0, i)
             i++
             this.$refs.scroll.refresh()
           } else {
