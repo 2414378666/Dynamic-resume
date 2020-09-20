@@ -1,15 +1,23 @@
 <template>
   <div class="hello">
     <div class="fathen">
-      <pre class="scroll">
-        {{text}}
-        <div v-show="text3">
-          {{text3}}
-        </div>
-      </pre>
+      
+        <pre class="scrollo">
+          <b-scrll class="contenti" ref="scroll2">
+            <div>
+              {{text}}
+              <div v-show="text3">
+                {{text3}}
+              </div>
+            </div>
+          </b-scrll>
+        </pre>
+      
     </div>
     <b-scrll class="contentt" ref="scroll">
+      <div class="box">
 
+      </div>
     </b-scrll>
     
 
@@ -25,7 +33,7 @@
 </template>
 
 <script>
-import {gethello,getres} from './src/instrument/axios'
+
 import BScrll from './src/scroll/BScrll'
 
 export default {
@@ -46,7 +54,7 @@ export default {
       perspective: 1058px;
     }
   /* 我们先加个滚轮把 然后把位置调整一下 */
-    .scroll {
+    .scrollo {
       overflow: scroll;
       width: 440px;
       height: 470px;
@@ -75,6 +83,14 @@ export default {
       background-color: #fff;
       padding: 20px;
       color: black;
+    }
+    .contenti {
+      position: absolute;
+      left: 153px;
+      right: 0;
+      top: 18px;
+      bottom: 0px;
+      overflow: hidden;
     }
     `,
     code2: `
@@ -109,7 +125,7 @@ export default {
     }
   },
   mounted () {
-    let contentt = document.querySelector('.contentt')
+    let box = document.querySelector('.box')
     let fathen = document.querySelector('.fathen')
     let n = 1
     let i = 1
@@ -122,16 +138,18 @@ export default {
         clearInterval(settime)
         resolve()
       }
-    }, 30)
+    }, 10)
     }).then(() => {
       new Promise((resolve, reject) => {
         const settime2 = setInterval(() => {
             if (i <= this.code2.length) {
-            contentt.innerHTML = this.code2.substr(0, i)
+            box.innerHTML = this.code2.substr(0, i)
             this.text2 = this.jianli.substr(0, i)
             this.text3 = this.jianli.substr(0, i)
             i++
             this.$refs.scroll.refresh()
+            this.$refs.scroll.scrollTo(0, -2000, 200)
+            this.$refs.scroll2.scrollTo(0, -400, 200)
           } else {
             clearInterval(settime2)
             resolve()
@@ -139,6 +157,7 @@ export default {
         },10)
         }).then(() => {
           this.$refs.scroll.refresh()
+          this.$refs.scroll2.refresh()
         })
     })
 
@@ -158,19 +177,15 @@ export default {
 </script>
 
 <style scoped>
+  .hello {
+    position: relative;
+  }
   .contentt {
     position: absolute;
     right: 144px;
     top: -76px;
-    bottom: -133px;
+    bottom: -65px;
     overflow: hidden;
     width: 600px;
   }
-  /* .content {
-    height: 500px;
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-  } */
 </style>

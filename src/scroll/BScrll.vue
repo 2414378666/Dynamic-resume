@@ -26,6 +26,11 @@ export default {
     })
   },
   methods: {
+    //页面下拉
+    scrollTo(x, y, time=500) {
+      this.dscroll && this.dscroll.scrollTo(x,y,time)
+    },
+    //刷新页面
     refresh() {
       this.dscroll && this.dscroll.refresh()
     },
